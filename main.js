@@ -79,18 +79,22 @@ function updateHistory(direction) {
 function handleArrow(arrow) {
   switch (arrow) {
     case 'ArrowUp':
+      if ( history.direction == DOWN ) break
       updateHistory(UP)
       direction = UP
       break
     case 'ArrowRight':
+      if ( history.direction == LEFT ) break
       updateHistory(RIGHT)
       direction = RIGHT
       break
     case 'ArrowLeft':
+      if ( history.direction == RIGHT ) break
       updateHistory(LEFT)
       direction = LEFT
       break
     case 'ArrowDown':
+      if ( history.direction == UP ) break
       updateHistory(DOWN)
       direction = DOWN
       break
