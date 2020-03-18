@@ -1,0 +1,10 @@
+.container {
+  /* width: 100vw; */
+  height: 97vh;
+  min-width: 512px;
+  min-height: 512px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
