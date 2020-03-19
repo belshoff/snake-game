@@ -4,12 +4,14 @@ const LEFT = 'LEFT'
 const DOWN = 'DOWN'
 const RIGHT = 'RIGHT'
 
+const score = document.getElementById('scoreConter')
+
 const canvas = document.getElementById('snake')
 const context = canvas.getContext('2d')
 const box = 32
 const max = 480
 
-let direction = ''
+let directions = []
 
 let history = {
   direction: ''
@@ -32,14 +34,14 @@ function getRandomPos() {
 }
 
 function criarBG() {
-  context.fillStyle = "#448060"
+  context.fillStyle = "lightseagreen"
   context.fillRect(0, 0, 16 * box, 16 * box)
 }
 
 function criarCobrinha() {
   snake.forEach(
     ({ x, y }) => {
-      context.fillStyle = "#FFFFFF" // "#FF4D3B"
+      context.fillStyle = "#6aea6a" // "#FF4D3B"
       context.fillRect(x, y, box, box)
     }
   )
@@ -47,13 +49,22 @@ function criarCobrinha() {
 
 function criarComida() {
   const { x, y } = food
-  context.fillStyle = "#FF0000"
+
+  context.fillStyle = "#FF4D3B"
   context.fillRect(x, y, box, box)
 }
 
 function handleDirection(coods) {
 
+  if (directions[0] == history.direction) {
+    return { x, y } = coords
+  }
+
   const { x, y } = coods
+  const direction = directions.shift() || history.direction
+
+  updateHistory(direction)
+
   switch (direction) {
     case RIGHT:
       return (
@@ -76,16 +87,34 @@ function handleDirection(coods) {
   }
 }
 
+function gameOver() {
+  clearInterval(jogo)
+  alert('Fim de Jogo')
+  alert('Pontuação: '+score.innerHTML)
+  score.innerHTML = 0
+  location.reload(true)
+}
+
 function startGame() {
+
+  for(let i = 1; i < snake.length; i++) {
+    const { x, y } = snake[i]
+
+    if ( x == snake[0].x &&  y == snake[0].y ) {
+      gameOver()
+    }
+  }
+
   criarBG()
   criarComida()
   criarCobrinha()
-
+    
   const new_pos = handleDirection(snake[0])
 
   if ( snake[0].x !== food.x || snake[0].y !== food.y ) {
     snake.pop()
   } else {
+    score.innerHTML = Number(score.innerHTML) + 1
     food = { x: getRandomPos(), y: getRandomPos() }     
   }
 
@@ -99,31 +128,20 @@ function updateHistory(direction) {
 function handleArrow(arrow) {
   switch (arrow) {
     case 'ArrowUp':
-      if ( history.direction == DOWN ) break
-      updateHistory(UP)
-      direction = UP
+      if ( history.direction == UP ) break
+      directions.push(UP)
       break
     case 'ArrowRight':
-      if ( history.direction == LEFT ) break
-      updateHistory(RIGHT)
-      direction = RIGHT
+      if ( history.direction == RIGHT ) break
+      directions.push(RIGHT)
       break
     case 'ArrowLeft':
-      if ( history.direction == RIGHT ) break
-      updateHistory(LEFT)
-      direction = LEFT
+      if ( history.direction == LEFT ) break
+      directions.push(LEFT)
       break
     case 'ArrowDown':
-      if ( history.direction == UP ) break
-      updateHistory(DOWN)
-      direction = DOWN
-      break
-    case ' ':
-      if ( direction == '' ) {
-        direction = history.direction
-      } else {
-        direction = ''
-      }
+      if ( history.direction == DOWN ) break
+      directions.push(DOWN)
       break
     default:
       break
@@ -133,9 +151,8 @@ function handleArrow(arrow) {
 this.addEventListener(
   'keyup',
   ({ key }) => {
-    console.log(key)
     handleArrow(key)
   }
 )
 
-let jogo = setInterval(startGame, 500)
+let jogo = setInterval(startGame, 150)

@@ -3,14 +3,33 @@
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>Snake</title>
+  <title>Cobrinha</title>
+  
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet" /> 
+
   <meta name='viewport' content='width=device-width, height=device-height, initial-scale=1'>
   <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
   <script defer src='main.js'></script>
 </head>
 <body>
   <div class="container">
+    <h1>Jogo da Cobrinha</h1>
     <canvas id="snake" width="512" height="512" ></canvas>
+  </div>
+  <div class="score-board">
+    <h2>Pontuação: <span id="scoreConter">0</span></h2>
+    <div id="about" >
+      <h3>Sobre:</h3>
+      <span class="body-about" >
+        <div class="content-about">
+          <div class="rect green"></div> - Cobrinha
+        </div>
+        <div class="content-about">
+          <div class="rect red"></div> - Frutinha
+        </div>
+      </span>
+    </div>
+    
   </div>
 </body>
 </html>
