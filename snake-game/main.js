@@ -89,7 +89,7 @@ function handleDirection(coods) {
 
 function gameOver() {
   clearInterval(jogo)
-  alert('Fim de Jogo')
+  alert('Você comeu você mesmo... Fim de Jogo :(')
   alert('Pontuação: '+score.innerHTML)
   score.innerHTML = 0
   location.reload(true)
