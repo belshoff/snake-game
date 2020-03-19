@@ -98,13 +98,13 @@ function handleArrow(arrow) {
       updateHistory(DOWN)
       direction = DOWN
       break
-    case ' ':
-      if ( direction == '' ) {
-        direction = history.direction
-      } else {
-        direction = ''
-      }
-      break
+    // case ' ':
+    //   if ( direction == '' ) {
+    //     direction = history.direction
+    //   } else {
+    //     direction = ''
+    //   }
+    //   break
     default:
       break
   }
