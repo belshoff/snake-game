@@ -22,6 +22,15 @@ let snake = [
   }
 ]
 
+let food = {
+  x: getRandomPos(),
+  y: getRandomPos()
+}
+
+function getRandomPos() {
+  return Math.floor(Math.random() * 15 + 1) * box
+}
+
 function criarBG() {
   context.fillStyle = "#448060"
   context.fillRect(0, 0, 16 * box, 16 * box)
@@ -30,10 +39,16 @@ function criarBG() {
 function criarCobrinha() {
   snake.forEach(
     ({ x, y }) => {
-      context.fillStyle = "#FF4D3B"
+      context.fillStyle = "#FFFFFF" // "#FF4D3B"
       context.fillRect(x, y, box, box)
     }
   )
+}
+
+function criarComida() {
+  const { x, y } = food
+  context.fillStyle = "#FF0000"
+  context.fillRect(x, y, box, box)
 }
 
 function handleDirection(coods) {
@@ -63,11 +78,16 @@ function handleDirection(coods) {
 
 function startGame() {
   criarBG()
+  criarComida()
   criarCobrinha()
 
   const new_pos = handleDirection(snake[0])
 
-  snake.pop()
+  if ( snake[0].x !== food.x || snake[0].y !== food.y ) {
+    snake.pop()
+  } else {
+    food = { x: getRandomPos(), y: getRandomPos() }     
+  }
 
   snake.unshift(new_pos)
 }
@@ -98,13 +118,13 @@ function handleArrow(arrow) {
       updateHistory(DOWN)
       direction = DOWN
       break
-    // case ' ':
-    //   if ( direction == '' ) {
-    //     direction = history.direction
-    //   } else {
-    //     direction = ''
-    //   }
-    //   break
+    case ' ':
+      if ( direction == '' ) {
+        direction = history.direction
+      } else {
+        direction = ''
+      }
+      break
     default:
       break
   }
@@ -118,4 +138,4 @@ this.addEventListener(
   }
 )
 
-let jogo = setInterval(startGame, 100)
+let jogo = setInterval(startGame, 500)
