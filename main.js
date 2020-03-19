@@ -23,14 +23,14 @@ let snake = [
 ]
 
 function criarBG() {
-  context.fillStyle = "lightgreen"
+  context.fillStyle = "#448060"
   context.fillRect(0, 0, 16 * box, 16 * box)
 }
 
 function criarCobrinha() {
   snake.forEach(
     ({ x, y }) => {
-      context.fillStyle = "green"
+      context.fillStyle = "#FF4D3B"
       context.fillRect(x, y, box, box)
     }
   )
